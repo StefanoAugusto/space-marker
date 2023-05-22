@@ -1,6 +1,6 @@
-import pygame
-import assets
+import pygame, assets
 from tkinter import simpledialog
+
 
 pygame.init()
 
@@ -17,7 +17,7 @@ icon = pygame.image.load("assets/space.png")
 pygame.display.set_icon(icon)
 background = pygame.image.load('assets/bg.jpg')
 pygame.mixer.music.load("assets/Space_Machine_Power.mp3")
-pygame.mixer.music.play(-1)
+#pygame.mixer.music.play(-1)
 
 fontSize = 25
 font = pygame.font.Font(None, fontSize)
@@ -25,22 +25,29 @@ circleRadius = 5
 
 # Colors
 white = (255, 255, 255)
+gray = (200, 200, 200)
+
 running = True
 star = {}
 lines = []
 
 # Functions
 def openBox():
-    position = pygame.mouse.get_pos()
-    item = simpledialog.askstring("Space", "Nome da Estrela:")
-    if item == '':
-        item = "Desconhecido " + str(position)
-    star[item] = position
-    print(star)
-    if len(star) >= 2:
-        keys = list(star.keys())
-        lines.append((star[keys[-2]], star[keys[-1]]))
-    print(lines) 
+    try:
+        position = pygame.mouse.get_pos()
+        item = simpledialog.askstring("Space", "Nome da Estrela:")
+        if item is None:
+            return
+        if item == '':
+            item = "Desconhecido " + str(position)
+        star[item] = position
+        print(star)
+        if len(star) >= 2:
+            keys = list(star.keys())
+            lines.append((star[keys[-2]], star[keys[-1]]))
+        print(lines) 
+    except:
+        pass
 
 def drawCircles():
     for item, position in star.items():
@@ -64,9 +71,18 @@ def printFunctions():
     display.blit(loadSurface, (10, 35))
     display.blit(deleteSurface, (10, 60))
 
+
 def drawLines():
     for line in lines:
-        pygame.draw.line(display, white, line[0], line[1], 2) 
+        pygame.draw.line(display, white, line[0], line[1], 2)
+        sumX = line[0][0] + line[1][0]
+        sumY = line[0][1] + line[1][1]
+        sumText = f"({sumX}, {sumY})"
+        sumSurface = font.render(sumText, True, gray)
+        textX = (line[0][0] + line[1][0]) // 2
+        textY = (line[0][1] + line[1][1]) // 2
+        textRect = sumSurface.get_rect(center=(textX, textY))
+        display.blit(sumSurface, textRect)
 
 # Running the project
 while running:
@@ -77,6 +93,7 @@ while running:
             running = False
         elif event.type == pygame.MOUSEBUTTONUP:
             openBox()
+
     
     display.fill(white)
     display.blit(background, (0, 0))
