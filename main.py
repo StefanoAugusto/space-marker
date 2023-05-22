@@ -1,5 +1,5 @@
-import pygame, assets
-from tkinter import simpledialog
+import pygame, assets, os
+from tkinter import simpledialog, messagebox
 
 
 pygame.init()
@@ -84,16 +84,92 @@ def drawLines():
         textRect = sumSurface.get_rect(center=(textX, textY))
         display.blit(sumSurface, textRect)
 
+def saveFile():
+    try:
+        dataFolder = "data"
+        if not os.path.exists(dataFolder):
+            os.makedirs(dataFolder)
+        filePath = os.path.join(dataFolder, "data.txt")
+        with open(filePath, "w") as file:
+            for item, position in star.items():
+                file.write(f"{item}: {position[0]}, {position[1]}\n")
+            for line in lines:
+                file.write(f"{line[0][0]}, {line[0][1]} - {line[1][0]}, {line[1][1]}\n")
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_F10:        
+            messagebox.showinfo("Space", "Pontos salvos com sucesso!")
+    except Exception as error:
+        messagebox.showerror("Space", f"Erro ao salvar pontos: {str(error)}")
+
+def loadFile():
+    try:
+        dataFolder = "data"
+        filePath = os.path.join(dataFolder, "data.txt")
+        if os.path.exists(filePath):
+            with open(filePath, "r") as file:
+                star.clear()
+                lines.clear()
+                for line in file:
+                    line = line.strip()
+                    if line:
+                        if ":" in line:
+                            item, position = line.split(":")
+                            item = item.strip()
+                            position = position.strip().split(",")
+                            x = int(position[0].strip())
+                            y = int(position[1].strip())
+                            star[item] = (x, y)
+                        elif "-" in line:
+                            coords = line.split("-")
+                            start = coords[0].strip().split(",")
+                            end = coords[1].strip().split(",")
+                            x1 = int(start[0].strip())
+                            y1 = int(start[1].strip())
+                            x2 = int(end[0].strip())
+                            y2 = int(end[1].strip())
+                            lines.append(((x1, y1), (x2, y2)))
+            messagebox.showinfo("Space", "Pontos carregados com sucesso!")
+    except Exception as error:
+        messagebox.showerror("Space", f"Erro ao carregar pontos: {str(error)}")
+
+def deleteFile():
+    try:
+        confirmation = messagebox.askquestion("Space", "Tem certeza de que deseja deletar os pontos?")
+        if confirmation == "yes":
+            dataFolder = "data"
+            filePath = os.path.join(dataFolder, "data.txt")
+            if os.path.exists(filePath):
+                star.clear()
+                lines.clear() 
+                os.remove(filePath)
+                messagebox.showinfo("Space", "Arquivo e pontos deletados com sucesso!")            
+            elif star:   
+                star.clear()
+                lines.clear() 
+                messagebox.showinfo("Space", "Pontos deletados com sucesso!")                                       
+            else:
+                messagebox.showinfo("Space", "Não foram encontrados arquivos ou pontos para serem apagados")
+            if os.path.exists(dataFolder):
+                os.rmdir(dataFolder)
+    except Exception as error:
+        messagebox.showerror("Space", f"Erro ao deletar arquivo e pontos: {str(error)}")
+
 # Running the project
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            saveFile()
             running = False
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            saveFile()
             running = False
         elif event.type == pygame.MOUSEBUTTONUP:
             openBox()
-
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_F10:
+            saveFile()
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_F11:
+            loadFile()
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_F12:
+            deleteFile()
     
     display.fill(white)
     display.blit(background, (0, 0))
