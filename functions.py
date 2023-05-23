@@ -1,10 +1,12 @@
 import pygame, os
 from tkinter import simpledialog, messagebox
+from languages import messages
+
 pygame.init()
 displaySize = (1000, 563)
 display = pygame.display.set_mode(displaySize)
-fontSize = 25
-font = pygame.font.Font(None, fontSize)
+font = pygame.font.Font(None, 25)
+smallFont = pygame.font.Font(None, 20)
 circleRadius = 5
 white = (255, 255, 255)
 gray = (200, 200, 200)
@@ -12,14 +14,20 @@ star = {}
 lines = []
 
 # Functions
-def openBox():
+def openBox(language):
     try:
         position = pygame.mouse.get_pos()
-        item = simpledialog.askstring("Space", "Nome da Estrela:")
+        message = messages.get(language, messages["pt_BR"])["openStar"]
+        item = simpledialog.askstring("Space", message)
         if item is None:
             return
-        if item == '':
+        if item == '' and language == "pt_BR":
             item = "Desconhecido " + str(position)
+        elif item == '' and language == "en_US":
+            item = "Unknown " + str(position)
+        if item in star:
+            messagebox.showerror("Space", messages.get(language, messages["pt_BR"])["starExistsError"])
+            return
         star[item] = position
         print(star)
         if len(star) >= 2:
@@ -40,17 +48,16 @@ def drawCircles():
         textRect = textSurface.get_rect(center=(position[0], position[1] - 15))
         display.blit(textSurface, textRect)
 
-def printFunctions():
-    saveText = "Pressione F10 para Salvar os Pontos"
-    loadText = "Pressione F11 para Carregar os Pontos"
-    deleteText = "Pressione F12 para Deletar os Pontos"
+def printFunctions(language):
+    saveText = messages.get(language, messages["pt_BR"])["savePoints"]
+    loadText = messages.get(language, messages["pt_BR"])["loadPoints"]
+    deleteText = messages.get(language, messages["pt_BR"])["deletePoints"]
     saveSurface = font.render(saveText, True, white)
     loadSurface = font.render(loadText, True, white)
     deleteSurface = font.render(deleteText, True, white)
     display.blit(saveSurface, (10, 10))
     display.blit(loadSurface, (10, 35))
     display.blit(deleteSurface, (10, 60))
-
 
 def drawLines():
     for line in lines:
@@ -64,7 +71,7 @@ def drawLines():
         textRect = sumSurface.get_rect(center=(textX, textY))
         display.blit(sumSurface, textRect)
 
-def saveFile():
+def saveFile(language):
     try:
         dataFolder = "data"
         if not os.path.exists(dataFolder):
@@ -77,11 +84,11 @@ def saveFile():
                 file.write(f"{line[0][0]}, {line[0][1]} - {line[1][0]}, {line[1][1]}\n")
         for event in pygame.event.get():
           if event.type == pygame.KEYDOWN and event.key == pygame.K_F10:        
-              messagebox.showinfo("Space", "Pontos salvos com sucesso!")
+              messagebox.showinfo("Space", messages.get(language, messages["pt_BR"])["saveSuccess"])
     except Exception as error:
-        messagebox.showerror("Space", f"Erro ao salvar pontos: {str(error)}")
+        messagebox.showerror("Space", messages.get(language, messages["pt_BR"])["errorSave"].format(error=error))
 
-def loadFile():
+def loadFile(language):
     try:
         dataFolder = "data"
         filePath = os.path.join(dataFolder, "data.txt")
@@ -108,13 +115,16 @@ def loadFile():
                             x2 = int(end[0].strip())
                             y2 = int(end[1].strip())
                             lines.append(((x1, y1), (x2, y2)))
-            messagebox.showinfo("Space", "Pontos carregados com sucesso!")
+            messagebox.showinfo("Space", messages.get(language, messages["pt_BR"])["loadSuccess"])
+        else:
+            raise error
     except Exception as error:
-        messagebox.showerror("Space", f"Erro ao carregar pontos: {str(error)}")
+        messagebox.showerror("Space", str(messages.get(language, messages["pt_BR"])["errorLoad"]))
 
-def deleteFile():
+
+def deleteFile(language):
     try:
-        confirmation = messagebox.askquestion("Space", "Tem certeza de que deseja deletar os pontos?")
+        confirmation = messagebox.askquestion("Space", messages.get(language, messages["pt_BR"])["deleteConfirm"])
         if confirmation == "yes":
             dataFolder = "data"
             filePath = os.path.join(dataFolder, "data.txt")
@@ -122,14 +132,39 @@ def deleteFile():
                 star.clear()
                 lines.clear() 
                 os.remove(filePath)
-                messagebox.showinfo("Space", "Arquivo e pontos deletados com sucesso!")            
+                messagebox.showinfo("Space", messages.get(language, messages["pt_BR"])["deleteSuccess"])            
             elif star:   
                 star.clear()
                 lines.clear() 
-                messagebox.showinfo("Space", "Pontos deletados com sucesso!")                                       
+                messagebox.showinfo("Space", messages.get(language, messages["pt_BR"])["deleteSuccess"])                                       
             else:
-                messagebox.showinfo("Space", "Não foram encontrados arquivos ou pontos para serem apagados")
+                messagebox.showinfo("Space", messages.get(language, messages["pt_BR"])["deleteNoFile"])
             if os.path.exists(dataFolder):
                 os.rmdir(dataFolder)
     except Exception as error:
-        messagebox.showerror("Space", f"Erro ao deletar arquivo e pontos: {str(error)}")
+       messagebox.showerror("Space", messages.get(language, messages["pt_BR"])["errorDelete"])
+
+def printTitle():
+    portuguesePress = "Pressione F1 para usar o aplicativo em Português"
+    englishPress = "Press F2 to use the application in English"
+    portugueseApr = "Desenvolvido por Stefano Augusto Mossi"
+    portugueseSem = "Ciências da Computação - Atitus - 2023/1"
+    englishApr = "Developed by Stefano Augusto Mossi"
+    englishSem =  "Computer Science - Atitus - 2023/1"
+
+    portuguesePressSurface = font.render(portuguesePress, True, white)
+    englishPressSurface = font.render(englishPress, True, white)
+    portugueseAprSurface = smallFont.render(portugueseApr, True, white)
+    englishAprSurface = smallFont.render(englishApr, True, white)
+    portugueseSemSurface = smallFont.render(portugueseSem, True, white)
+    englishSemSurface = smallFont.render(englishSem, True, white)
+
+    portuguesePressRect = portuguesePressSurface.get_rect(center=(display.get_width() // 2, 335))
+    englishPressRect = englishPressSurface.get_rect(center=(display.get_width() // 2, 360))
+
+    display.blit(portuguesePressSurface, portuguesePressRect)
+    display.blit(englishPressSurface, englishPressRect)
+    display.blit(portugueseAprSurface, (10, 480))
+    display.blit(portugueseSemSurface, (10, 500))
+    display.blit(englishAprSurface, (10, 520))
+    display.blit(englishSemSurface, (10, 540))
