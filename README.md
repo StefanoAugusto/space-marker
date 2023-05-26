@@ -1,5 +1,5 @@
 <h1 align="center">Space Marker</h1>
-<h4 align="center"> :construction: Projeto em construção :construction: </h4>
+<h4 align="center"> :white_check_mark: Projeto Finalizado :white_check_mark:</h4>
 O projeto Space Marker faz parte do processo avaliativo da disciplina de Pensamento Computacional de Ciências da Computação - Atitus 2023/01, que é inclusa no Bloco de Data Science do curso. O projeto consiste em aplicar todos as metodologias ensinadas em sala de aula e buscando a melhora do algoritmo, devendo observar indicações da avaliação para o funcionamento.<br><br>
 
 <h2 align="center">
@@ -18,9 +18,10 @@ A solução consiste na marcação de pontos para uma imagem obtida pelo telesc�
 </ul>
 <br>
 <h2 align="center">
-	<a>Pré-requisitos</a>
+	<a>Como executar o projeto</a>
 </h2>
-Atualmente, para rodar o projeto é necessário ter a linguagem Python 3 e a biblioteca pygame instalada. Para download da linguagem, <a href=https://www.python.org/>clique aqui</a>. Para instalar o pygame, é necessário ter o PIP instalado, sua instalação é feita junto com a linguagem Python. Além disso, é necessário executar o seguinte comando no prompt de comando:
+Existem duas formas de rodar o projeto, a primeira, que é a mais simples, é baixando o arquivo em formato "<b>Space Marker.rar</b>", <a href=https://drive.google.com/file/d/1-qgwCtACELOz1Y9QP9JIJZZhCLrxABfp/view?usp/>clicando aqui</a>.<br> Descompactar o arquivo em formato <code>.rar</code> e executar o arquivo chamado <code>Space Marker.exe</code>. <br>
+Outra forma de rodar o projeto é realizando o download dos arquivos diretamente do git e executar via prompt de comando. Para isso, é necessário ter a linguagem Python 3 e a biblioteca pygame instalada. Para download da linguagem, <a href=https://www.python.org/>clique aqui</a>. Para instalar o pygame, é necessário ter o PIP instalado, sua instalação é feita junto com a linguagem Python. Além disso, é necessário executar o seguinte comando no prompt de comando:
 <br><br>
 
 ```
