@@ -29,11 +29,11 @@ def openBox(language):
             messagebox.showerror("Space", messages.get(language, messages["pt_BR"])["starExistsError"])
             return
         star[item] = position
-        print(star)
+        #print(star)
         if len(star) >= 2:
             keys = list(star.keys())
             lines.append((star[keys[-2]], star[keys[-1]]))
-        print(lines) 
+        #print(lines) 
     except:
         pass
 
@@ -52,6 +52,14 @@ def printFunctions(language):
     saveText = messages.get(language, messages["pt_BR"])["savePoints"]
     loadText = messages.get(language, messages["pt_BR"])["loadPoints"]
     deleteText = messages.get(language, messages["pt_BR"])["deletePoints"]
+    developedBy = messages.get(language, messages["pt_BR"])["developedBy"]
+    courseInfo = messages.get(language, messages["pt_BR"])["courseInfo"]
+    developedBySurface = smallFont.render(developedBy, True, white)
+    courseInfoSurface = smallFont.render(courseInfo, True, white)
+
+    display.blit(developedBySurface, (10, 520))
+    display.blit(courseInfoSurface, (10, 540))
+
     saveSurface = font.render(saveText, True, white)
     loadSurface = font.render(loadText, True, white)
     deleteSurface = font.render(deleteText, True, white)
@@ -147,24 +155,24 @@ def deleteFile(language):
 def printTitle():
     portuguesePress = "Pressione F1 para usar o aplicativo em Português"
     englishPress = "Press F2 to use the application in English"
-    portugueseApr = "Desenvolvido por Stefano Augusto Mossi"
-    portugueseSem = "Ciências da Computação - Atitus - 2023/1"
-    englishApr = "Developed by Stefano Augusto Mossi"
-    englishSem =  "Computer Science - Atitus - 2023/1"
+    developedByPortuguese = "Desenvolvido por Stefano Augusto Mossi"
+    courseInfoPortuguese = "Ciências da Computação - Atitus - 2023/1"
+    developedByEnglish = "Developed by Stefano Augusto Mossi"
+    courseInfoEnglish =  "Computer Science - Atitus - 2023/1"
 
     portuguesePressSurface = font.render(portuguesePress, True, white)
     englishPressSurface = font.render(englishPress, True, white)
-    portugueseAprSurface = smallFont.render(portugueseApr, True, white)
-    englishAprSurface = smallFont.render(englishApr, True, white)
-    portugueseSemSurface = smallFont.render(portugueseSem, True, white)
-    englishSemSurface = smallFont.render(englishSem, True, white)
+    developedByPortugueseSurface = smallFont.render(developedByPortuguese, True, white)
+    developedByEnglishSurface = smallFont.render(developedByEnglish, True, white)
+    courseInfoPortugueseSurface = smallFont.render(courseInfoPortuguese, True, white)
+    courseInfoEnglishSurface = smallFont.render(courseInfoEnglish, True, white)
 
     portuguesePressRect = portuguesePressSurface.get_rect(center=(display.get_width() // 2, 335))
     englishPressRect = englishPressSurface.get_rect(center=(display.get_width() // 2, 360))
 
     display.blit(portuguesePressSurface, portuguesePressRect)
     display.blit(englishPressSurface, englishPressRect)
-    display.blit(portugueseAprSurface, (10, 480))
-    display.blit(portugueseSemSurface, (10, 500))
-    display.blit(englishAprSurface, (10, 520))
-    display.blit(englishSemSurface, (10, 540))
+    display.blit(developedByPortugueseSurface, (10, 480))
+    display.blit(courseInfoPortugueseSurface, (10, 500))
+    display.blit(developedByEnglishSurface, (10, 520))
+    display.blit(courseInfoEnglishSurface, (10, 540))
