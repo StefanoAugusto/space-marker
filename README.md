@@ -39,4 +39,4 @@ Para executar o projeto, é necessário abrir o prompt de comando dentro da past
 A solução foi criada por: <b>Stefano Augusto Mossi (Registro Acadêmico: 1131685)</b>.<br>
 <br>
 	
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)]([https://www.linkedin.com/](https://br.linkedin.com/in/stefano-augusto-mossi-6525aa217))
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://br.linkedin.com/in/stefano-augusto-mossi-6525aa217)
