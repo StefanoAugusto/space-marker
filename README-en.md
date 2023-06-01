@@ -22,7 +22,7 @@ The solution involves marking points on an image obtained from the James Webb Sp
 <h2 align="center">
 	<a>How to Execute the Project</a>
 </h2>
-There are two ways to run the project. The first, which is the simplest, is by downloading the file "<b>Space Marker.rar</b>", <a href=https://drive.google.com/file/d/1-qgwCtACELOz1Y9QP9JIJZZhCLrxABfp/view?usp/>clicking here</a>.
+There are two ways to run the project. The first, which is the simplest, is by downloading the file "<code>Space Marker.rar</code>, <a href=https://drive.google.com/file/d/1-qgwCtACELOz1Y9QP9JIJZZhCLrxABfp/view?usp/>clicking here</a>.
 <br> Unzip the file <code>Space Marker.rar</code> and execute the <code>Space Marker.exe</code>.<br>
 Another way to run the project is by downloading the files directly from the Git repository and running it via the command prompt. For this, you need to have Python 3 language and the Pygame library installed. To download the Python language, <a href=https://www.python.org/>click here</a>. To install Pygame, you need to have PIP installed, which comes with the Python language. Additionally, you need to execute the following command in the command prompt:
 <br><br>
@@ -41,4 +41,4 @@ To run the project, you need to open the command prompt within the main project 
 The solution was created by: <b>Stefano Augusto Mossi (Academic ID: 1131685)</b>.<br>
 <br>
 	
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)]([https://www.linkedin.com/](https://br.linkedin.com/in/stefano-augusto-mossi-6525aa217))
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://br.linkedin.com/in/stefano-augusto-mossi-6525aa217)
