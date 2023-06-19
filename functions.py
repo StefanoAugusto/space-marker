@@ -93,6 +93,8 @@ def saveFile(language):
         for event in pygame.event.get():
           if event.type == pygame.KEYDOWN and event.key == pygame.K_F10:        
               messagebox.showinfo("Space", messages.get(language, messages["pt_BR"])["saveSuccess"])
+        else:
+            raise error
     except Exception as error:
         messagebox.showerror("Space", messages.get(language, messages["pt_BR"])["errorSave"].format(error=error))
 
@@ -124,6 +126,8 @@ def loadFile(language):
                             y2 = int(end[1].strip())
                             lines.append(((x1, y1), (x2, y2)))
             messagebox.showinfo("Space", messages.get(language, messages["pt_BR"])["loadSuccess"])
+        else:
+            raise error
     except Exception as error:
         messagebox.showerror("Space", str(messages.get(language, messages["pt_BR"])["errorLoad"]))
 
@@ -147,6 +151,8 @@ def deleteFile(language):
                 messagebox.showinfo("Space", messages.get(language, messages["pt_BR"])["deleteNoFile"])
             if os.path.exists(dataFolder):
                 os.rmdir(dataFolder)
+        else:
+            raise error
     except Exception as error:
        messagebox.showerror("Space", messages.get(language, messages["pt_BR"])["errorDelete"])
 
