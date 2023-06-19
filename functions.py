@@ -124,8 +124,6 @@ def loadFile(language):
                             y2 = int(end[1].strip())
                             lines.append(((x1, y1), (x2, y2)))
             messagebox.showinfo("Space", messages.get(language, messages["pt_BR"])["loadSuccess"])
-        else:
-            raise error
     except Exception as error:
         messagebox.showerror("Space", str(messages.get(language, messages["pt_BR"])["errorLoad"]))
 
